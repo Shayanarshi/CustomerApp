@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: CustomerApp
+
+  main:
+    banner-mode: "off"
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/customer_schema
+    username: root
+    password: Shayan@5426
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8083
