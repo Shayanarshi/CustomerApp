@@ -20,10 +20,9 @@ import java.util.List;
 @RestController
 public class CustomerRestController {
 
-    private static final String PLAN_URL = "http://localhost:8081/plans/{id}";
+    private static final String PLAN_URL = "http://PLANAPP/plans/{id}";
 
-    private static final String FRIEND_URL = "http://localhost:8082/friend/{phoneNumber}";
-
+    private static final String FRIEND_URL = "http://FRIENDAPP/friend/{phoneNumber}";
     @Autowired
     RestTemplate restTemplate;
 
@@ -42,6 +41,7 @@ public class CustomerRestController {
 
     @GetMapping("/customer/profile/{phoneNumber}")
     @CircuitBreaker(name="profile-circuit", fallbackMethod = "showProfileFallback")
+
     public CustomerResponse showProfile(@PathVariable Long phoneNumber) {
 
         CustomerEntity customerEntity = service.readCustomer(phoneNumber);
@@ -49,6 +49,8 @@ public class CustomerRestController {
         CustomerResponse customerResponse = new CustomerResponse();
 
         BeanUtils.copyProperties(customerEntity, customerResponse);
+
+        
 
         // calling plan microservice
         PlanEntity planEntity = callPlanService(customerEntity.getPlanId());
