@@ -54,6 +54,7 @@ public class CustomerRestController {
 
         // calling plan microservice
         PlanEntity planEntity = callPlanService(customerEntity.getPlanId());
+
         BeanUtils.copyProperties(planEntity, customerResponse);
 
         // calling friend microservice
@@ -71,7 +72,6 @@ public class CustomerRestController {
         return planEntity;
     }
 
-//  calling friend microservices
     public List<Object[]>  callFriendService(long phoneNumber) {
         ParameterizedTypeReference<List<Object[]>> typeRef = new ParameterizedTypeReference<List<Object[]>>() {};
 
@@ -79,14 +79,13 @@ public class CustomerRestController {
         List<Object[]> friendsContactNumbers = re2.getBody();
         return friendsContactNumbers;
     }
-
-    public CustomerResponse showProfileFallback(Long phoneNumber, Throwable t) {
+    //  fall back method for entire show profile
+   public CustomerResponse showProfileFallback(Long phoneNumber, Throwable t) {
 
         CustomerEntity customerEntity = service.readCustomer(phoneNumber);
 
         CustomerResponse customerResponse = new CustomerResponse();
-
-
+        
         BeanUtils.copyProperties(customerEntity, customerResponse);
 
         // calling plan microservice
@@ -99,9 +98,7 @@ public class CustomerRestController {
 
         return customerResponse;
     }
-    
     public List<Object[]> callFriendServiceFallback(long phoneNumber) {
         return new ArrayList<Object[]>();
     }
-
 }

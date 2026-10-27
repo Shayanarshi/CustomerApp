@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class CustomerResponse {
     private  Long  phoneNumber;
-    private  String username;
+    private  String userName;
     private  String email;
     private  String planId;
     private  String description;
